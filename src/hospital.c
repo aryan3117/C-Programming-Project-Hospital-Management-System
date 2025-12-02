@@ -24,7 +24,8 @@ void addPatient() {
     scanf(" %[^\n]", patientList[totalPatients].problem);
 
     totalPatients++;
-    printf("-> Patient added!\n");
+
+    printf("-> Patient added successfully!\n");
 }
 
 void book(struct Department dept[], int n) {
@@ -35,6 +36,7 @@ void book(struct Department dept[], int n) {
     printf("Enter patient name: ");
     scanf(" %[^\n]", pname);
 
+    // Check if patient exists
     int ok = 0;
     for(int i = 0; i < totalPatients; i++) {
         if(strcmp(pname, patientList[i].name) == 0) {
@@ -42,8 +44,9 @@ void book(struct Department dept[], int n) {
             break;
         }
     }
+
     if(!ok) {
-        printf("Patient not found. Register first!\n");
+        printf("Patient not found. Please register first!\n");
         return;
     }
 
@@ -80,14 +83,23 @@ void book(struct Department dept[], int n) {
         return;
     }
 
+    // Save appointment
     strcpy(appList[totalApps].pName, pname);
     strcpy(appList[totalApps].dName, dept[dChoice].docs[docChoice].name);
     strcpy(appList[totalApps].slot, dept[dChoice].docs[docChoice].timing);
     appList[totalApps].fee = dept[dChoice].docs[docChoice].fee;
+    strcpy(appList[totalApps].deptName, dept[dChoice].name);
 
     totalApps++;
 
-    printf("\n-> Appointment booked.\n");
+    printf("\n-> Appointment booked successfully!\n");
+    printf("Patient: %s\nDoctor: %s\nDepartment: %s\nTime: %s\nFee: Rs.%d\n",
+        pname,
+        dept[dChoice].docs[docChoice].name,
+        dept[dChoice].name,
+        dept[dChoice].docs[docChoice].timing,
+        dept[dChoice].docs[docChoice].fee
+    );
 }
 
 void findDoctor(struct Department dept[], int n) {
@@ -100,15 +112,18 @@ void findDoctor(struct Department dept[], int n) {
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < 3; j++) {
             if(strcasecmp(dname, dept[i].docs[j].name) == 0) {
+
                 printf("\nDoctor Found!\n");
                 printf("Name: %s\n", dept[i].docs[j].name);
-                printf("Dept: %s\n", dept[i].name);
-                printf("Time: %s\n", dept[i].docs[j].timing);
+                printf("Department: %s\n", dept[i].name);
+                printf("Timing: %s\n", dept[i].docs[j].timing);
                 printf("Fee: Rs.%d\n", dept[i].docs[j].fee);
                 return;
             }
         }
     }
 
-    printf("No such doctor!\n");
+    printf("No such doctor found!\n");
 }
+
+
