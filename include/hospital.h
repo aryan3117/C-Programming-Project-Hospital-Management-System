@@ -23,21 +23,17 @@ struct Patient {
     char problem[100];
 };
 
+struct Appointment {
+    char patientName[50];
+    char doctorName[50];
+    char deptName[50];
+};
+
 extern struct Patient patientList[100];
 extern int totalPatients;
 
-struct Appointment {
-    char pName[50];
-    char dName[50];
-    char slot[30];
-    int fee;
-};
-
-extern struct Appointment appList[100];
-extern int totalApps;
-
 void addPatient();
-void book(struct Department dept[], int n);
-void findDoctor(struct Department dept[], int n);
+void book(struct Department dept[], int deptCount);
+void findDoctor(struct Department dept[], int deptCount);
 
 #endif
